@@ -3,9 +3,9 @@
 
 DWORD GetProcessPid() {
 
-	HWND hWnd = FindWindowA("UnrealWindow", NULL); //¸ù¾İÀàÃû»ñÈ¡´°¿Ú
+	HWND hWnd = FindWindowA("UnrealWindow", NULL); //æ ¹æ®ç±»åè·å–çª—å£
 	DWORD Pid = 0;
-	GetWindowThreadProcessId(hWnd, &Pid); //Í¨¹ı´°¿Ú»ñÈ¡½ø³ÌID
+	GetWindowThreadProcessId(hWnd, &Pid); //é€šè¿‡çª—å£è·å–è¿›ç¨‹ID
 
 	if (Pid == 0)
 	{
@@ -25,7 +25,7 @@ HANDLE GetProcessHandle() {
 		return NULL;
 	}
 
-	HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, Pid); //´ò¿ª½ø³Ì
+	HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, Pid); //æ‰“å¼€è¿›ç¨‹
 
 	if (handle == 0)
 	{
@@ -36,9 +36,9 @@ HANDLE GetProcessHandle() {
 
 }
 
-HMODULE GetProcessMoudleBase() { //»ñÈ¡½ø³ÌÖ÷Ä£¿é
+HMODULE GetProcessMoudleBase() { //è·å–è¿›ç¨‹ä¸»æ¨¡å—
 
-	HANDLE handle = ::CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetProcessPid()); //  »ñÈ¡½ø³ÌµÄËùÓĞµÄÄ£¿é¡£
+	HANDLE handle = ::CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetProcessPid()); //  è·å–è¿›ç¨‹çš„æ‰€æœ‰çš„æ¨¡å—ã€‚
 
 	if (handle == 0)
 	{
@@ -49,7 +49,7 @@ HMODULE GetProcessMoudleBase() { //»ñÈ¡½ø³ÌÖ÷Ä£¿é
 	MODULEENTRY32 moduleEntry = {0};
 	moduleEntry.dwSize = sizeof(MODULEENTRY32);
 
-	if (!Module32First(handle, &moduleEntry)) { //»ñÈ¡½ø³ÌµÚÒ»¸öÄ£¿é
+	if (!Module32First(handle, &moduleEntry)) { //è·å–è¿›ç¨‹ç¬¬ä¸€ä¸ªæ¨¡å—
 		CloseHandle(handle);
 		return NULL;
 	}
@@ -73,7 +73,7 @@ FName ReadProcessFname(PVOID address) {
 
 	FName buffer = {0};
 	SIZE_T ret_size;
-	ReadProcessMemory(GetProcessHandle(), address, &buffer, sizeof(DWORD64), 0);
+	ReadProcessMemory(GetProcessHandle(), address, &buffer, sizeof(FName), 0);
 	return buffer;
 }
 
