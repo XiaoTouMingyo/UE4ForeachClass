@@ -97,8 +97,7 @@ std::string GetOuterName(DWORD64 Address)
 		std::string temp;
 		for (auto outer = GetOuter(Address); outer!=0; outer = GetOuter(outer))
 		{
-			auto Name = GetName(outer);
-			temp = Name + "." + temp;
+			temp = GetName(outer) + "." + temp;
 		}
 
 		temp += GetName(Address);  //自己的类名
